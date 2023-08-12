@@ -11,7 +11,6 @@ require 'capybara/rspec'
 require 'capybara/rails'
 
 require 'selenium-webdriver'
-require 'webdrivers/chromedriver'
 
 RSpec.configure do |config|
   config.after(:each, type: :system) do
@@ -25,8 +24,7 @@ RSpec.configure do |config|
       driven_by :selenium, using: :chrome,
                            options: {
                              browser: :remote,
-                             url: ENV.fetch('SELENIUM_DRIVER_URL'),
-                             desired_capabilities: :chrome
+                             url: ENV.fetch('SELENIUM_DRIVER_URL')
                            }
       Capybara.run_server = false
       Capybara.app_host = ENV.fetch('CAPYBARA_APP_HOST')

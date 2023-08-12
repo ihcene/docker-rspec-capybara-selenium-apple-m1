@@ -15,7 +15,7 @@ services:
     command: bundle exec rails s -b 0.0.0.0
     environment:
       - SELENIUM_DRIVER_URL=http://selenium-hub:4444/wd/hub
-      - CAPYBARA_APP_HOST=http://test:3000
+      - CAPYBARA_APP_HOST=http://host.docker.internal:3000
     depends_on:
       - selenium-hub
     networks:

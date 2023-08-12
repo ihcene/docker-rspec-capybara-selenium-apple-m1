@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Period picker", type: :system, js: true do
   it 'works' do
-    visit 'http://172.17.0.1:3000/'
+    visit '/'
 
     page.execute_script("document.write('Rails 2.4.6')")
 

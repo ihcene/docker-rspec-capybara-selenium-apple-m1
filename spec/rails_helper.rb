@@ -13,6 +13,8 @@ require 'capybara/rails'
 require 'selenium-webdriver'
 
 RSpec.configure do |config|
+  config.include Rails.application.routes.url_helpers, type: :system
+
   config.after(:each, type: :system) do
     driven_by :rack_test
     Capybara.reset_sessions!

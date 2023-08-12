@@ -1,0 +1,46 @@
+version: '3'
+
+networks:
+  all:
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    command: bundle exec rails s -b 0.0.0.0
+    environment:
+      - SELENIUM_DRIVER_URL=http://selenium-hub:4444/wd/hub
+      - CAPYBARA_APP_HOST=http://test:3000
+    depends_on:
+      - selenium-hub
+    networks:
+      all:
+
+  selenium-hub:
+    image: seleniarm/hub:4.4.0-20220903
+    ports:
+      - "4444:4444"
+    networks:
+      all:
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  selenium-node-chrome:
+    image: seleniarm/node-chromium
+    environment:
+      HUB_HOST: selenium-hub
+      HUB_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+    networks:
+      all:
+    depends_on:
+      - selenium-hub

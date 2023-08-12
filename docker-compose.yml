@@ -22,7 +22,7 @@ services:
       all:
 
   selenium-hub:
-    image: seleniarm/hub:4.4.0-20220903
+    image: ${SELENIUM_IMAGE}
     ports:
       - "4444:4444"
     networks:

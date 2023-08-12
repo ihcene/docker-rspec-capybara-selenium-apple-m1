@@ -52,4 +52,6 @@ RSpec.configure do |config|
     visit '/assets/application.css'
     visit '/assets/application.js'
   end
+
+  Capybara.default_max_wait_time = 5
 end
